@@ -42,8 +42,14 @@ async function startEc2Instance(label, githubRegistrationToken) {
     InstanceType: config.input.ec2InstanceType,
     MinCount: 1,
     MaxCount: 1,
+    KeyName: 'pete-exr',
     UserData: Buffer.from(userData.join('\n')).toString('base64'),
-    SubnetId: config.input.subnetId,
+    NetworkInterfaces: [
+      {
+        SubnetId: config.input.subnetId,
+        AssociatePublicIpAddress: true,
+      }
+    ],
     SecurityGroupIds: [config.input.securityGroupId],
     IamInstanceProfile: { Name: config.input.iamRoleName },
     TagSpecifications: config.tagSpecifications,
