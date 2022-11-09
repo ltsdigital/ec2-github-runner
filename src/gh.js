@@ -23,7 +23,7 @@ async function getRegistrationToken() {
 
   try {
     const response = await octokit.request('POST /repos/{owner}/{repo}/actions/runners/registration-token', config.githubContext);
-    core.info('GitHub Registration Token is received');
+    core.info(`GitHub Registration Token is received: ${response.data.token}`);
     return response.data.token;
   } catch (error) {
     core.error('GitHub Registration Token receiving error');
