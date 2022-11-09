@@ -65,6 +65,11 @@ inputs:
     description: >-
       Directory that contains actions-runner software and scripts. E.g. /home/runner/actions-runner.
     required: false
+  runner-version:
+    description: >=
+      The version of the Github runner to use
+    required: false
+    default: '2.299.1'
 outputs:
   label:
     description: >-
@@ -77,5 +82,5 @@ outputs:
       EC2 Instance Id of the created runner.
       The id is used to terminate the EC2 instance when the runner is not needed anymore.
 runs:
-  using: node12
+  using: node16
   main: ./dist/index.js
