@@ -46,11 +46,13 @@ async function startEc2Instance(label, githubRegistrationToken) {
     UserData: Buffer.from(userData.join('\n')).toString('base64'),
     NetworkInterfaces: [
       {
+        Groups: [config.input.securityGroupId],
+        DeleteOnTermination: true,
+        DeviceIndex: 0,
         SubnetId: config.input.subnetId,
         AssociatePublicIpAddress: true,
       }
     ],
-    SecurityGroupIds: [config.input.securityGroupId],
     IamInstanceProfile: { Name: config.input.iamRoleName },
     TagSpecifications: config.tagSpecifications,
   };
